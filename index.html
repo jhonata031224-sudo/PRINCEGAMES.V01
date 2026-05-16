@@ -4,20 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prince Games — Pilih Role</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:     #070d14;
-      --card:   #0d1520;
-      --border: rgba(255,255,255,.08);
-      --cyan:   #00d9ff;
-      --purple: #b026ff;
-      --text:   #edf4ff;
-      --muted:  #7f93aa;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: rgba(255,255,255,0.07);
+      --cyan: #00d9ff;
+      --purple: #a855f7;
+      --text: #e6edf3;
+      --muted: #7d8590;
     }
 
     body {
@@ -27,254 +25,267 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(10px);
     }
 
-    /* Glow dekoratif */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -120px; left: -120px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,217,255,.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -120px; right: -120px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(176,38,255,.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    /* Logo */
     .logo {
-      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
     }
     .logo-icon {
-      width: 64px; height: 64px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(0,217,255,.15), rgba(176,38,255,.15));
-      border: 1px solid rgba(0,217,255,.3);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 14px;
-      box-shadow: 0 0 24px rgba(0,217,255,.15);
+      font-size: 18px;
+      color: var(--cyan);
     }
-    .logo h1 {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-    .logo h1 span {
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .logo p {
-      color: var(--muted);
-      font-size: 13.5px;
-      margin-top: 6px;
-    }
+    .logo-prince { color: var(--text); }
+    .logo-games  { color: var(--cyan); }
 
-    /* Card pilih role */
-    .card {
-      background: rgba(13,21,32,.85);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 32px 28px 28px;
-      margin-top: 28px;
-      backdrop-filter: blur(12px);
-    }
-
-    .card-title {
-      font-size: 13px;
+    .topbar-badge {
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
+      color: var(--cyan);
+      border: 1px solid rgba(0,217,255,0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
     }
 
-    /* Role buttons */
-    .role-btn {
+    /* ── MAIN ── */
+    main {
+      flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 16px;
-      width: 100%;
-      padding: 18px 20px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all .2s ease;
-      margin-bottom: 12px;
+      justify-content: center;
+      padding: 48px 20px;
       position: relative;
       overflow: hidden;
     }
-    .role-btn:last-child { margin-bottom: 0; }
 
-    .role-btn::before {
+    /* background glow blob */
+    main::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(0,217,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── HEADING ── */
+    .heading {
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .heading .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 14px;
+    }
+    .heading h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+    .heading h1 .white { color: var(--text); }
+    .heading h1 .cyan  { color: var(--cyan); }
+    .heading h1 .purple { color: var(--purple); }
+    .heading p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ── CARDS GRID ── */
+    .cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 860px;
+      width: 100%;
+      position: relative;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 28px 36px;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
       content: '';
       position: absolute;
       inset: 0;
       opacity: 0;
       transition: opacity .2s;
+      border-radius: 20px;
     }
-    .role-btn:hover::before { opacity: 1; }
-    .role-btn:active { transform: scale(.98); }
+    .card:hover { transform: translateY(-4px); }
+    .card:active { transform: scale(0.97); }
+
+    /* Owner — purple */
+    .card.owner { border-color: rgba(168,85,247,0.2); }
+    .card.owner::before { background: linear-gradient(160deg, rgba(168,85,247,0.07), transparent 60%); }
+    .card.owner:hover { border-color: rgba(168,85,247,0.45); box-shadow: 0 12px 40px rgba(168,85,247,0.12); }
+    .card.owner:hover::before { opacity: 1; }
+    .card.owner .icon-wrap { background: rgba(168,85,247,0.15); }
+    .card.owner .icon-wrap i { color: #a855f7; }
+
+    /* Staff — amber/gold */
+    .card.staff { border-color: rgba(234,179,8,0.2); }
+    .card.staff::before { background: linear-gradient(160deg, rgba(234,179,8,0.07), transparent 60%); }
+    .card.staff:hover { border-color: rgba(234,179,8,0.45); box-shadow: 0 12px 40px rgba(234,179,8,0.1); }
+    .card.staff:hover::before { opacity: 1; }
+    .card.staff .icon-wrap { background: rgba(234,179,8,0.13); }
+    .card.staff .icon-wrap i { color: #eab308; }
 
     /* Pelanggan — cyan */
-    .role-btn.pelanggan {
-      border-color: rgba(0,217,255,.25);
-    }
-    .role-btn.pelanggan::before {
-      background: linear-gradient(135deg, rgba(0,217,255,.08), transparent);
-    }
-    .role-btn.pelanggan:hover {
-      border-color: rgba(0,217,255,.5);
-      box-shadow: 0 0 20px rgba(0,217,255,.12);
-    }
-    .role-btn.pelanggan .icon {
-      background: rgba(0,217,255,.12);
-      color: var(--cyan);
-    }
-    .role-btn.pelanggan .arrow { color: var(--cyan); }
+    .card.pelanggan { border-color: rgba(0,217,255,0.2); }
+    .card.pelanggan::before { background: linear-gradient(160deg, rgba(0,217,255,0.07), transparent 60%); }
+    .card.pelanggan:hover { border-color: rgba(0,217,255,0.45); box-shadow: 0 12px 40px rgba(0,217,255,0.1); }
+    .card.pelanggan:hover::before { opacity: 1; }
+    .card.pelanggan .icon-wrap { background: rgba(0,217,255,0.12); }
+    .card.pelanggan .icon-wrap i { color: var(--cyan); }
 
-    /* Staff — purple */
-    .role-btn.staff {
-      border-color: rgba(176,38,255,.25);
-    }
-    .role-btn.staff::before {
-      background: linear-gradient(135deg, rgba(176,38,255,.08), transparent);
-    }
-    .role-btn.staff:hover {
-      border-color: rgba(176,38,255,.5);
-      box-shadow: 0 0 20px rgba(176,38,255,.12);
-    }
-    .role-btn.staff .icon {
-      background: rgba(176,38,255,.12);
-      color: var(--purple);
-    }
-    .role-btn.staff .arrow { color: var(--purple); }
-
-    /* Owner — gold */
-    .role-btn.owner {
-      border-color: rgba(255,185,0,.2);
-    }
-    .role-btn.owner::before {
-      background: linear-gradient(135deg, rgba(255,185,0,.07), transparent);
-    }
-    .role-btn.owner:hover {
-      border-color: rgba(255,185,0,.4);
-      box-shadow: 0 0 20px rgba(255,185,0,.1);
-    }
-    .role-btn.owner .icon {
-      background: rgba(255,185,0,.1);
-      color: #ffb900;
-    }
-    .role-btn.owner .arrow { color: #ffb900; }
-
-    .icon {
-      width: 42px; height: 42px;
-      border-radius: 12px;
+    .icon-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 17px;
-      flex-shrink: 0;
+      margin-bottom: 20px;
+      font-size: 26px;
+      position: relative;
+      z-index: 1;
     }
 
-    .role-info {
-      flex: 1;
-      text-align: left;
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
     }
-    .role-info .role-name { font-size: 15px; font-weight: 700; }
-    .role-info .role-desc { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 400; }
-
-    .arrow {
-      font-size: 14px;
-      opacity: .7;
-      transition: transform .2s;
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
     }
-    .role-btn:hover .arrow { transform: translateX(4px); opacity: 1; }
 
-    /* Footer */
-    .footer {
-      margin-top: 24px;
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px;
       color: var(--muted);
       font-size: 12px;
+      border-top: 1px solid var(--border);
     }
-    .footer span {
-      color: var(--cyan);
-      font-weight: 700;
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .topbar { padding: 0 16px; }
+      .cards { flex-direction: column; align-items: center; gap: 14px; }
+      .card { width: 100%; max-width: 320px; padding: 32px 24px 28px; flex-direction: row; text-align: left; gap: 18px; }
+      .icon-wrap { margin-bottom: 0; flex-shrink: 0; width: 56px; height: 56px; font-size: 22px; }
+      .card-title { margin-bottom: 4px; }
+      .heading { margin-bottom: 36px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
 
-    <div class="logo">
-      <div class="logo-icon">🎮</div>
-      <h1><span>Prince Games</span></h1>
-      <p>Sistem Manajemen Rental PS</p>
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">♔</span>
+      <span class="logo-prince">PRINCE</span>&nbsp;<span class="logo-games">GAMES</span>
+    </a>
+    <div class="topbar-badge">Sistem Rental</div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <div class="heading">
+      <div class="label">Selamat Datang</div>
+      <h1>
+        <span class="white">Masuk sebagai </span><span class="cyan">siapa</span><span class="purple">?</span>
+      </h1>
+      <p>Pilih role Anda untuk melanjutkan ke halaman login</p>
     </div>
 
-    <div class="card">
-      <div class="card-title">Masuk sebagai</div>
+    <div class="cards">
 
-      <a href="login-pelanggan.html" class="role-btn pelanggan">
-        <div class="icon"><i class="fas fa-user"></i></div>
-        <div class="role-info">
-          <div class="role-name">Pelanggan</div>
-          <div class="role-desc">Booking & cek status rental</div>
+      <a href="login-owner.html" class="card owner">
+        <div class="icon-wrap">
+          <i>♔</i>
         </div>
-        <i class="fas fa-chevron-right arrow"></i>
+        <div class="card-title">Owner</div>
+        <div class="card-desc">Kelola unit, laporan &amp; seluruh data sistem</div>
       </a>
 
-      <a href="login-staff.html" class="role-btn staff">
-        <div class="icon"><i class="fas fa-headset"></i></div>
-        <div class="role-info">
-          <div class="role-name">Staff</div>
-          <div class="role-desc">Kelola sesi & transaksi harian</div>
+      <a href="login-staff.html" class="card staff">
+        <div class="icon-wrap">
+          <i>👤</i>
         </div>
-        <i class="fas fa-chevron-right arrow"></i>
+        <div class="card-title">Staff</div>
+        <div class="card-desc">Konfirmasi booking &amp; kelola transaksi harian</div>
       </a>
 
-      <a href="login-owner.html" class="role-btn owner">
-        <div class="icon"><i class="fas fa-crown"></i></div>
-        <div class="role-info">
-          <div class="role-name">Owner</div>
-          <div class="role-desc">Dashboard & laporan bisnis</div>
+      <a href="login-pelanggan.html" class="card pelanggan">
+        <div class="icon-wrap">
+          <i>🎮</i>
         </div>
-        <i class="fas fa-chevron-right arrow"></i>
+        <div class="card-title">Pelanggan</div>
+        <div class="card-desc">Booking, bayar &amp; lihat riwayat sewa unit</div>
       </a>
+
     </div>
+  </main>
 
-    <div class="footer">
-      &copy; 2025 <span>Prince Games</span> — All rights reserved
-    </div>
+  <!-- FOOTER -->
+  <footer>© 2025 Prince Games · Sistem Manajemen Rental</footer>
 
-  </div>
 </body>
 </html>
