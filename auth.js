@@ -53,20 +53,15 @@ export const handleLogout = async (targetUrl = 'login-pelanggan.html') => {
 
 // --- LOGIKA LOGIN OWNER ---
 window.handleLoginOwner = async () => {
-    const email = document.getElementById('owner-email').value;
+    const email = document.getElementById('owner-email').value.trim();
     const pass = document.getElementById('owner-pass').value;
-    if (email !== "dinarjhonata03@gmail.com" || pass !== "12345678") {
-        if (typeof window.setLoading === 'function') window.setLoading(false);
-        notify('error', 'Akses Ditolak', 'Kredensial Owner salah!');
-        return;
-    }
     try {
         await signInWithEmailAndPassword(auth, email, pass);
         notify('success', 'Selamat Datang Owner!');
         setTimeout(() => window.location.href = 'dashboard-owner.html', 1500);
     } catch (error) {
         if (typeof window.setLoading === 'function') window.setLoading(false);
-        notify('error', 'Login Gagal', 'Periksa koneksi atau akun Anda.');
+        notify('error', 'Login Gagal', 'Email atau password salah!');
     }
 };
 
@@ -206,6 +201,46 @@ window.handleRegisterStaff = async () => {
         } else {
             notify('error', 'Gagal Daftar', msg);
         }
+    }
+};
+
+// --- LOGIKA DAFTAR OWNER ---
+window.handleRegisterOwner = async () => {
+    const email = document.getElementById('owner-email').value.trim();
+    const pass  = document.getElementById('owner-pass').value;
+
+    if (!email || !pass) {
+        notify('error', 'Gagal', 'Email dan password wajib diisi!');
+        return;
+    }
+
+    try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        const uid  = cred.user.uid;
+
+        await setDoc(doc(db, "owner", uid), {
+            email,
+            role: "owner",
+            createdAt: new Date().toISOString()
+        });
+
+        notify('success', 'Akun Owner Dibuat!', 'Silakan masuk.');
+        setTimeout(() => window.location.href = 'login-owner.html', 1800);
+
+    } catch (error) {
+        const btn = document.getElementById('regBtn');
+        if (btn) {
+            btn.classList.remove('loading');
+            btn.innerHTML = 'Buat Akun <i class="fas fa-arrow-right"></i>';
+        }
+        const msg = {
+            "auth/email-already-in-use":    "Email sudah terdaftar!",
+            "auth/weak-password":           "Password terlalu lemah, minimal 8 karakter!",
+            "auth/invalid-email":           "Format email tidak valid!",
+            "auth/network-request-failed":  "Gagal terhubung ke internet!",
+            "auth/too-many-requests":       "Terlalu banyak percobaan, coba lagi nanti!",
+        }[error.code] || `Pendaftaran gagal: ${error.message}`;
+        notify('error', 'Gagal Daftar', msg);
     }
 };
 
